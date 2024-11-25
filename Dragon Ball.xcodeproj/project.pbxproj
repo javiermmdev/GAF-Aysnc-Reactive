@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B51D8B72CF4FD5800D0DC1D /* DetailHeroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B51D8B62CF4FD5800D0DC1D /* DetailHeroViewController.xib */; };
+		3B51D8B82CF4FD5800D0DC1D /* DetailHeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8B52CF4FD5800D0DC1D /* DetailHeroViewController.swift */; };
 		7120FBAE2CED246B0083F689 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120FBA42CED246B0083F689 /* AppDelegate.swift */; };
 		7120FBAF2CED246B0083F689 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120FBAB2CED246B0083F689 /* SceneDelegate.swift */; };
 		7120FBB12CED246B0083F689 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7120FBA52CED246B0083F689 /* Assets.xcassets */; };
@@ -54,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B51D8B52CF4FD5800D0DC1D /* DetailHeroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeroViewController.swift; sourceTree = "<group>"; };
+		3B51D8B62CF4FD5800D0DC1D /* DetailHeroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailHeroViewController.xib; sourceTree = "<group>"; };
 		7120FB702CED21340083F689 /* KCDragonBallProf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KCDragonBallProf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7120FB862CED21360083F689 /* KCDragonBallProfTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KCDragonBallProfTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7120FBA42CED246B0083F689 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +124,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B51D8B42CF4FD1C00D0DC1D /* DetailHero */ = {
+			isa = PBXGroup;
+			children = (
+				3B51D8B52CF4FD5800D0DC1D /* DetailHeroViewController.swift */,
+				3B51D8B62CF4FD5800D0DC1D /* DetailHeroViewController.xib */,
+			);
+			path = DetailHero;
+			sourceTree = "<group>";
+		};
 		7120FB672CED21340083F689 = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +281,7 @@
 		7120FBC22CED26090083F689 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3B51D8B42CF4FD1C00D0DC1D /* DetailHero */,
 				7120FBC62CED26290083F689 /* Error */,
 				7120FBC52CED26240083F689 /* Home */,
 				7120FBC42CED261E0083F689 /* Login */,
@@ -437,6 +451,7 @@
 				71F29B052CEFD66100EE27C8 /* HerosTableViewCell.xib in Resources */,
 				7120FBB12CED246B0083F689 /* Assets.xcassets in Resources */,
 				71F29AEC2CEFBC7A00EE27C8 /* ErrorViewController.xib in Resources */,
+				3B51D8B72CF4FD5800D0DC1D /* DetailHeroViewController.xib in Resources */,
 				7120FBB32CED246B0083F689 /* LaunchScreen.storyboard in Resources */,
 				71F29B0A2CEFE2FD00EE27C8 /* heros.json in Resources */,
 			);
@@ -462,6 +477,7 @@
 				71F29B072CEFD7A700EE27C8 /* UIImage+Extensions.swift in Sources */,
 				7120FBCE2CED2C4A0083F689 /* LoginViewController.swift in Sources */,
 				7120FBDB2CED3AA60083F689 /* EndPoints.swift in Sources */,
+				3B51D8B82CF4FD5800D0DC1D /* DetailHeroViewController.swift in Sources */,
 				7120FBD92CED3A350083F689 /* LoginUseCaseProtocol.swift in Sources */,
 				71F29AFE2CEFD26C00EE27C8 /* HerosViewModel.swift in Sources */,
 				7120FBD32CED38FF0083F689 /* AppState.swift in Sources */,

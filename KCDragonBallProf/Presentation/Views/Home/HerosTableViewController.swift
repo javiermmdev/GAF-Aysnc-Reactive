@@ -63,8 +63,14 @@ class HerosTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Extract the model
         let hero = self.viewModel.herosData[indexPath.row]
+        
+        // Crear la nueva vista y pasarle el héroe
+        let detailVC = DetailHeroViewController()
+        detailVC.hero = hero
+        
+        // Navegar a la nueva vista
+        self.navigationController?.pushViewController(detailVC, animated: true)
         
         NSLog("Hero tap => \(hero.name)")
     }
