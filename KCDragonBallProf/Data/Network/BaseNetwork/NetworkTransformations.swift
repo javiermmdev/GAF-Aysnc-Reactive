@@ -7,55 +7,30 @@ protocol NetworkTransformationsProtocol {
 
 final class NetworkTransformations: NetworkTransformationsProtocol {
     func getTransformations(heroId: String) async -> [TransformationModel] {
-        print("Hero ID enviado: \(heroId)")
         var modelReturn = [TransformationModel]()
         
         let urlCad: String = "\(ConstantsApp.CONST_API_URL)\(EndPoints.transformations.rawValue)"
-        guard let url = URL(string: urlCad) else {
-            print("Error: URL malformada")
-            return []
-        }
-        
-        var request: URLRequest = URLRequest(url: url)
+        var request: URLRequest = URLRequest(url: URL(string: urlCad)!)
         request.httpMethod = HTTPMethods.post
-        request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONEncoder().encode(TransformationModelRequest(id: heroId))
+        request.addValue(HTTPMethods.content, forHTTPHeaderField: "Content-Type")
         
-        // Cuerpo de la solicitud
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: ["id": heroId])
-        } catch {
-            print("Error al serializar el cuerpo de la solicitud: \(error)")
-            return []
-        }
-        
-        // Token de autorización
         let JwtToken = KeyChainKC().loadKC(key: ConstantsApp.CONST_TOKEN_ID_KEYCHAIN)
         if let tokenJWT = JwtToken {
-            request.addValue("Bearer \(tokenJWT)", forHTTPHeaderField: "Authorization")
-        } else {
-            print("Error: No se encontró un token válido en KeyChain")
-            return []
+            request.addValue("Bearer \(tokenJWT)", forHTTPHeaderField: "Authorization") // Token
         }
         
-        // Realizar la solicitud
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
-            
             if let resp = response as? HTTPURLResponse {
                 if resp.statusCode == HTTPResponseCodes.SUCCESS {
-                    // Log de la respuesta
-                    if let jsonString = String(data: data, encoding: .utf8) {
-                        print("Respuesta de la API: \(jsonString)")
-                    }
-                    
-                    // Decodificar los datos
                     modelReturn = try JSONDecoder().decode([TransformationModel].self, from: data)
                 } else {
                     print("Error HTTP: Código \(resp.statusCode)")
                 }
             }
         } catch {
-            print("Error al realizar la solicitud: \(error)")
+            print("Error al obtener las transformaciones: \(error)")
         }
         
         return modelReturn
@@ -69,7 +44,7 @@ final class NetworkTransformationsFake: NetworkTransformationsProtocol {
 }
 
 func getTransformationsFromJson() -> [TransformationModel] {
-    if let url = Bundle.main.url(forResource: "transformation", withExtension: "json") {
+    if let url = Bundle.main.url(forResource: "transformations", withExtension: "json") {
         do {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()

@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3B51D8B82CF4FD5800D0DC1D /* DetailHeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8B52CF4FD5800D0DC1D /* DetailHeroViewController.swift */; };
-		3B51D8BA2CF5045000D0DC1D /* NetworkTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8B92CF5044A00D0DC1D /* NetworkTransformation.swift */; };
 		3B51D8BC2CF5046A00D0DC1D /* TransformationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8BB2CF5046500D0DC1D /* TransformationsModel.swift */; };
-		3B51D8BE2CF5065E00D0DC1D /* transformation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B51D8BD2CF5065700D0DC1D /* transformation.json */; };
+		3B51D8BE2CF5065E00D0DC1D /* transformations.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B51D8BD2CF5065700D0DC1D /* transformations.json */; };
 		3B51D8C02CF5069700D0DC1D /* TransformationsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8BF2CF5068E00D0DC1D /* TransformationsRepositoryProtocol.swift */; };
 		3B51D8C22CF5070000D0DC1D /* TransformationsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8C12CF506FB00D0DC1D /* TransformationsUseCase.swift */; };
 		3B51D8C42CF508AD00D0DC1D /* TransformationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8C32CF508A800D0DC1D /* TransformationsRepository.swift */; };
 		3B51D8C62CF50A9B00D0DC1D /* HeroDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8C52CF50A9600D0DC1D /* HeroDetailViewModel.swift */; };
+		3B51D8C82CF50F1F00D0DC1D /* NetworkTransformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8C72CF50F1300D0DC1D /* NetworkTransformations.swift */; };
 		7120FBAE2CED246B0083F689 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120FBA42CED246B0083F689 /* AppDelegate.swift */; };
 		7120FBAF2CED246B0083F689 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120FBAB2CED246B0083F689 /* SceneDelegate.swift */; };
 		7120FBB12CED246B0083F689 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7120FBA52CED246B0083F689 /* Assets.xcassets */; };
@@ -63,13 +63,13 @@
 
 /* Begin PBXFileReference section */
 		3B51D8B52CF4FD5800D0DC1D /* DetailHeroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeroViewController.swift; sourceTree = "<group>"; };
-		3B51D8B92CF5044A00D0DC1D /* NetworkTransformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTransformation.swift; sourceTree = "<group>"; };
 		3B51D8BB2CF5046500D0DC1D /* TransformationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformationsModel.swift; sourceTree = "<group>"; };
-		3B51D8BD2CF5065700D0DC1D /* transformation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = transformation.json; sourceTree = "<group>"; };
+		3B51D8BD2CF5065700D0DC1D /* transformations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = transformations.json; sourceTree = "<group>"; };
 		3B51D8BF2CF5068E00D0DC1D /* TransformationsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformationsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		3B51D8C12CF506FB00D0DC1D /* TransformationsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformationsUseCase.swift; sourceTree = "<group>"; };
 		3B51D8C32CF508A800D0DC1D /* TransformationsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformationsRepository.swift; sourceTree = "<group>"; };
 		3B51D8C52CF50A9600D0DC1D /* HeroDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewModel.swift; sourceTree = "<group>"; };
+		3B51D8C72CF50F1300D0DC1D /* NetworkTransformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTransformations.swift; sourceTree = "<group>"; };
 		7120FB702CED21340083F689 /* KCDragonBallProf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KCDragonBallProf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7120FB862CED21360083F689 /* KCDragonBallProfTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KCDragonBallProfTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7120FBA42CED246B0083F689 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -241,12 +241,12 @@
 		7120FBBB2CED25B40083F689 /* BaseNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				3B51D8C72CF50F1300D0DC1D /* NetworkTransformations.swift */,
 				7120FBDA2CED3AA60083F689 /* EndPoints.swift */,
 				7120FBDC2CED3ADC0083F689 /* HTTPResponseCodes.swift */,
 				7120FBDE2CED3B170083F689 /* HTTPMethods.swift */,
 				7120FBE32CED3C350083F689 /* NetworkLogin.swift */,
 				71F29AF72CEFCD6F00EE27C8 /* NetworkHeros.swift */,
-				3B51D8B92CF5044A00D0DC1D /* NetworkTransformation.swift */,
 			);
 			path = BaseNetwork;
 			sourceTree = "<group>";
@@ -362,7 +362,7 @@
 		71F29B082CEFE2E800EE27C8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3B51D8BD2CF5065700D0DC1D /* transformation.json */,
+				3B51D8BD2CF5065700D0DC1D /* transformations.json */,
 				71F29B092CEFE2FD00EE27C8 /* heros.json */,
 			);
 			path = Resources;
@@ -471,7 +471,7 @@
 				71F29AEC2CEFBC7A00EE27C8 /* ErrorViewController.xib in Resources */,
 				7120FBB32CED246B0083F689 /* LaunchScreen.storyboard in Resources */,
 				71F29B0A2CEFE2FD00EE27C8 /* heros.json in Resources */,
-				3B51D8BE2CF5065E00D0DC1D /* transformation.json in Resources */,
+				3B51D8BE2CF5065E00D0DC1D /* transformations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71F29AF42CEFC87400EE27C8 /* HeroesModel.swift in Sources */,
+				3B51D8C82CF50F1F00D0DC1D /* NetworkTransformations.swift in Sources */,
 				71F29AFA2CEFCF9400EE27C8 /* HerosRepository.swift in Sources */,
 				71F29B072CEFD7A700EE27C8 /* UIImage+Extensions.swift in Sources */,
 				7120FBCE2CED2C4A0083F689 /* LoginViewController.swift in Sources */,
@@ -519,7 +520,6 @@
 				71F29B042CEFD66100EE27C8 /* HerosTableViewCell.swift in Sources */,
 				3B51D8C02CF5069700D0DC1D /* TransformationsRepositoryProtocol.swift in Sources */,
 				3B51D8C62CF50A9B00D0DC1D /* HeroDetailViewModel.swift in Sources */,
-				3B51D8BA2CF5045000D0DC1D /* NetworkTransformation.swift in Sources */,
 				3B51D8C22CF5070000D0DC1D /* TransformationsUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

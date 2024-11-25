@@ -4,7 +4,6 @@ final class HeroDetailViewModel {
     private var transformationsRepository: TransformationsRepositoryProtocol
     private var hero: HerosModel
     
-    // Variable que observará la vista
     @Published var isTransformationsButtonVisible: Bool = false
     
     init(hero: HerosModel, repository: TransformationsRepositoryProtocol = TransformationsRepository(network: NetworkTransformations())) {

@@ -7,3 +7,7 @@ struct TransformationModel: Codable {
     let photo: String
     let name: String
 }
+
+struct TransformationModelRequest: Codable {
+    let id: String
+}
