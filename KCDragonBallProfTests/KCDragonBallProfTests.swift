@@ -1,6 +1,6 @@
 import XCTest
 import Combine
-import KCLibrarySwift
+import KcLibraryswift
 import CombineCocoa
 import UIKit
 @testable import KCDragonBallProf

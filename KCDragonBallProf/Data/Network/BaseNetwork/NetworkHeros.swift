@@ -1,5 +1,5 @@
 import Foundation
-import KCLibrarySwift
+import KcLibraryswift
 
 protocol NetworkHerosProtocol {
     func getHeros(filter: String) async -> [HerosModel]

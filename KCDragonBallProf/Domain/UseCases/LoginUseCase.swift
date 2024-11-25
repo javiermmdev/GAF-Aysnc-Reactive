@@ -1,5 +1,5 @@
 import Foundation
-import KCLibrarySwift
+import KcLibraryswift
 
 final class LoginUseCase: LoginUseCaseProtocol {
     var repo: LoginRepositoryProtocol

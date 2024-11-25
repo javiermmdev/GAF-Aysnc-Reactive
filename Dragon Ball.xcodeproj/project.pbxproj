@@ -23,7 +23,6 @@
 		7120FBE22CED3BAF0083F689 /* ConstantsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120FBE12CED3BAF0083F689 /* ConstantsApp.swift */; };
 		7120FBE42CED3C350083F689 /* NetworkLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120FBE32CED3C350083F689 /* NetworkLogin.swift */; };
 		7120FBE92CED3F5A0083F689 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120FBE82CED3F5A0083F689 /* LoginRepository.swift */; };
-		71F29AE12CEFB0D900EE27C8 /* KCLibrarySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 71F29AE02CEFB0D900EE27C8 /* KCLibrarySwift */; };
 		71F29AE42CEFB92500EE27C8 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 71F29AE32CEFB92500EE27C8 /* CombineCocoa */; };
 		71F29AEB2CEFBC7A00EE27C8 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F29AE92CEFBC7A00EE27C8 /* ErrorViewController.swift */; };
 		71F29AEC2CEFBC7A00EE27C8 /* ErrorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F29AEA2CEFBC7A00EE27C8 /* ErrorViewController.xib */; };
@@ -40,6 +39,8 @@
 		71F29B052CEFD66100EE27C8 /* HerosTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F29B032CEFD66100EE27C8 /* HerosTableViewCell.xib */; };
 		71F29B072CEFD7A700EE27C8 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F29B062CEFD7A700EE27C8 /* UIImage+Extensions.swift */; };
 		71F29B0A2CEFE2FD00EE27C8 /* heros.json in Resources */ = {isa = PBXBuildFile; fileRef = 71F29B092CEFE2FD00EE27C8 /* heros.json */; };
+		C48A30F92CF4CE5A00CD6A3C /* KcLibraryswift in Frameworks */ = {isa = PBXBuildFile; productRef = C48A30F82CF4CE5A00CD6A3C /* KcLibraryswift */; };
+		C48A30FB2CF4CE6200CD6A3C /* KcLibraryswift in Frameworks */ = {isa = PBXBuildFile; productRef = C48A30FA2CF4CE6200CD6A3C /* KcLibraryswift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,8 +104,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C48A30FB2CF4CE6200CD6A3C /* KcLibraryswift in Frameworks */,
 				71F29AE42CEFB92500EE27C8 /* CombineCocoa in Frameworks */,
-				71F29AE12CEFB0D900EE27C8 /* KCLibrarySwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C48A30F92CF4CE5A00CD6A3C /* KcLibraryswift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				71F29B082CEFE2E800EE27C8 /* Resources */,
-				7120FBE52CED3E8C0083F689 /* Preview Content */,
 				7120FBB52CED247C0083F689 /* Presentation */,
 				7120FBB62CED24850083F689 /* Domain */,
 				7120FBB72CED248B0083F689 /* Data */,
@@ -311,13 +312,6 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
-		7120FBE52CED3E8C0083F689 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		71F29ADF2CEFB0D900EE27C8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,8 +353,8 @@
 			);
 			name = KCDragonBallProf;
 			packageProductDependencies = (
-				71F29AE02CEFB0D900EE27C8 /* KCLibrarySwift */,
 				71F29AE32CEFB92500EE27C8 /* CombineCocoa */,
+				C48A30FA2CF4CE6200CD6A3C /* KcLibraryswift */,
 			);
 			productName = KCDragonBallProf;
 			productReference = 7120FB702CED21340083F689 /* KCDragonBallProf.app */;
@@ -384,6 +378,7 @@
 			);
 			name = KCDragonBallProfTests;
 			packageProductDependencies = (
+				C48A30F82CF4CE5A00CD6A3C /* KcLibraryswift */,
 			);
 			productName = KCDragonBallProfTests;
 			productReference = 7120FB862CED21360083F689 /* KCDragonBallProfTests.xctest */;
@@ -419,8 +414,8 @@
 			mainGroup = 7120FB672CED21340083F689;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				7120FBEC2CED41800083F689 /* XCRemoteSwiftPackageReference "KCLibrarySwift" */,
 				71F29AE22CEFB92500EE27C8 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				C48A30F52CF4CDF000CD6A3C /* XCRemoteSwiftPackageReference "KcLibraryswift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7120FB712CED21340083F689 /* Products */;
@@ -535,7 +530,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "KCDragonBallProf/Preview\\ Content";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3HTYCHJUV2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KCDragonBallProf/Info.plist;
@@ -568,7 +563,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "KCDragonBallProf/Preview\\ Content";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3HTYCHJUV2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KCDragonBallProf/Info.plist;
@@ -786,14 +781,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7120FBEC2CED41800083F689 /* XCRemoteSwiftPackageReference "KCLibrarySwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/LuisEscamez/KCLibrarySwift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.2;
-			};
-		};
 		71F29AE22CEFB92500EE27C8 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa";
@@ -802,18 +789,31 @@
 				minimumVersion = 0.4.1;
 			};
 		};
+		C48A30F52CF4CDF000CD6A3C /* XCRemoteSwiftPackageReference "KcLibraryswift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/joselbe1976/KcLibraryswift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		71F29AE02CEFB0D900EE27C8 /* KCLibrarySwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7120FBEC2CED41800083F689 /* XCRemoteSwiftPackageReference "KCLibrarySwift" */;
-			productName = KCLibrarySwift;
-		};
 		71F29AE32CEFB92500EE27C8 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 71F29AE22CEFB92500EE27C8 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		C48A30F82CF4CE5A00CD6A3C /* KcLibraryswift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C48A30F52CF4CDF000CD6A3C /* XCRemoteSwiftPackageReference "KcLibraryswift" */;
+			productName = KcLibraryswift;
+		};
+		C48A30FA2CF4CE6200CD6A3C /* KcLibraryswift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C48A30F52CF4CDF000CD6A3C /* XCRemoteSwiftPackageReference "KcLibraryswift" */;
+			productName = KcLibraryswift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
