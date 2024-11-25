@@ -1,16 +1,11 @@
-//
-//  DetailHeroViewController.swift
-//  KCDragonBallProf
-//
-//  Created by Javier Muñoz on 25/11/24.
-//
-
 import UIKit
+import Combine
 
-class DetailHeroViewController: UIViewController {
-
+final class DetailHeroViewController: UIViewController {
     var hero: HerosModel?
-
+    private var viewModel: HeroDetailViewModel!
+    private var cancellables = Set<AnyCancellable>()
+    
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -40,14 +35,21 @@ class DetailHeroViewController: UIViewController {
         button.setTitle("Transformaciones", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true // Oculto por defecto
         return button
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let hero = hero else { return }
+        self.viewModel = HeroDetailViewModel(hero: hero)
         self.view.backgroundColor = .white
         setupUI()
-        populateData()
+        bindViewModel()
+        loadHeroData()
+        Task {
+            await viewModel.fetchTransformations()
+        }
     }
 
     private func setupUI() {
@@ -81,11 +83,20 @@ class DetailHeroViewController: UIViewController {
         ])
     }
 
-    private func populateData() {
-        guard let hero = hero else { return }
-        nameLabel.text = hero.name
-        descriptionLabel.text = hero.description
-        if let url = URL(string: hero.photo) {
+    private func bindViewModel() {
+        viewModel.$isTransformationsButtonVisible
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isVisible in
+                self?.transformationsButton.isHidden = !isVisible
+            }
+            .store(in: &cancellables)
+    }
+
+    private func loadHeroData() {
+        let heroDetails = viewModel.getHeroDetails()
+        nameLabel.text = heroDetails.name
+        descriptionLabel.text = heroDetails.description
+        if let url = URL(string: heroDetails.photo) {
             photoImageView.loadImageRemote(url: url)
         }
     }
