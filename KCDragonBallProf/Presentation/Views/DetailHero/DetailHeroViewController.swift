@@ -2,6 +2,7 @@ import UIKit
 import Combine
 
 final class DetailHeroViewController: UIViewController {
+    
     var hero: HerosModel?
     private var viewModel: HeroDetailViewModel!
     private var cancellables = Set<AnyCancellable>()
@@ -53,33 +54,52 @@ final class DetailHeroViewController: UIViewController {
     }
 
     private func setupUI() {
-        // Agregar subviews
-        view.addSubview(photoImageView)
-        view.addSubview(nameLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(transformationsButton)
+        // Añadir el scrollView
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
 
-        // Configurar Auto Layout
+        // Añadir subviews al contentView
+        contentView.addSubview(photoImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(transformationsButton)
+
+        // Configurar Auto Layout para el scrollView y el contentView
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+
+        // Configurar Auto Layout para los elementos dentro del contentView
         NSLayoutConstraint.activate([
             // Imagen
-            photoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            photoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            photoImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            photoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             photoImageView.heightAnchor.constraint(equalToConstant: 200),
 
             // Nombre
             nameLabel.topAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: 20),
-            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
 
             // Descripción
             descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
-            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
 
             // Botón
-            transformationsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            transformationsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            transformationsButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
+            transformationsButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            transformationsButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
     }
 
@@ -100,4 +120,17 @@ final class DetailHeroViewController: UIViewController {
             photoImageView.loadImageRemote(url: url)
         }
     }
+    
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 }
