@@ -48,6 +48,7 @@ final class DetailHeroViewController: UIViewController {
         setupUI()
         bindViewModel()
         loadHeroData()
+        setupActions()
         Task {
             await viewModel.fetchTransformations()
         }
@@ -121,6 +122,30 @@ final class DetailHeroViewController: UIViewController {
         }
     }
     
+    private func setupActions() {
+        transformationsButton.addTarget(self, action: #selector(didTapTransformationsButton), for: .touchUpInside)
+    }
+
+    @objc private func didTapTransformationsButton() {
+        guard let heroId = hero?.id else {
+            print("Hero ID is missing")
+            return
+        }
+        
+        // Crear el ViewModel para Transformations
+        let transformationsViewModel = TransformationsViewModel()
+        
+        // Crear el controlador de TransformationsTableViewController
+        let transformationsVC = TransformationsTableViewController(viewModel: transformationsViewModel)
+        
+        // Navegar a TransformationsTableViewController
+        self.navigationController?.pushViewController(transformationsVC, animated: true)
+        
+        // Fetch transformaciones para el héroe actual
+        Task {
+            await transformationsViewModel.fetchTransformations(heroName: heroId.uuidString)
+        }
+    }
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()

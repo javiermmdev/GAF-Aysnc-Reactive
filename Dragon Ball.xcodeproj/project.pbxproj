@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B3134C62CF5E33C00FDAA32 /* TransformationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3134C52CF5E33800FDAA32 /* TransformationsTableViewController.swift */; };
+		3B3134C82CF5E57300FDAA32 /* TransformationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3134C72CF5E57300FDAA32 /* TransformationsViewModel.swift */; };
 		3B51D8B82CF4FD5800D0DC1D /* DetailHeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8B52CF4FD5800D0DC1D /* DetailHeroViewController.swift */; };
 		3B51D8BC2CF5046A00D0DC1D /* TransformationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8BB2CF5046500D0DC1D /* TransformationsModel.swift */; };
 		3B51D8BE2CF5065E00D0DC1D /* transformations.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B51D8BD2CF5065700D0DC1D /* transformations.json */; };
@@ -62,6 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B3134C52CF5E33800FDAA32 /* TransformationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformationsTableViewController.swift; sourceTree = "<group>"; };
+		3B3134C72CF5E57300FDAA32 /* TransformationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformationsViewModel.swift; sourceTree = "<group>"; };
 		3B51D8B52CF4FD5800D0DC1D /* DetailHeroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeroViewController.swift; sourceTree = "<group>"; };
 		3B51D8BB2CF5046500D0DC1D /* TransformationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformationsModel.swift; sourceTree = "<group>"; };
 		3B51D8BD2CF5065700D0DC1D /* transformations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = transformations.json; sourceTree = "<group>"; };
@@ -136,10 +140,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B3134C42CF5E32500FDAA32 /* Transformations */ = {
+			isa = PBXGroup;
+			children = (
+				3B3134C52CF5E33800FDAA32 /* TransformationsTableViewController.swift */,
+			);
+			path = Transformations;
+			sourceTree = "<group>";
+		};
+		3B3134C92CF5E5ED00FDAA32 /* Heros */ = {
+			isa = PBXGroup;
+			children = (
+				71F29AFF2CEFD35900EE27C8 /* HerosTableViewController.swift */,
+			);
+			path = Heros;
+			sourceTree = "<group>";
+		};
 		3B51D8B42CF4FD1C00D0DC1D /* DetailHero */ = {
 			isa = PBXGroup;
 			children = (
-				3B51D8C52CF50A9600D0DC1D /* HeroDetailViewModel.swift */,
 				3B51D8B52CF4FD5800D0DC1D /* DetailHeroViewController.swift */,
 			);
 			path = DetailHero;
@@ -298,6 +317,8 @@
 		7120FBC22CED26090083F689 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3B3134C92CF5E5ED00FDAA32 /* Heros */,
+				3B3134C42CF5E32500FDAA32 /* Transformations */,
 				3B51D8B42CF4FD1C00D0DC1D /* DetailHero */,
 				7120FBC62CED26290083F689 /* Error */,
 				7120FBC52CED26240083F689 /* Home */,
@@ -310,7 +331,9 @@
 		7120FBC32CED26100083F689 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				3B3134C72CF5E57300FDAA32 /* TransformationsViewModel.swift */,
 				7120FBD22CED38FF0083F689 /* AppState.swift */,
+				3B51D8C52CF50A9600D0DC1D /* HeroDetailViewModel.swift */,
 				71F29AFD2CEFD26C00EE27C8 /* HerosViewModel.swift */,
 			);
 			path = ViewModel;
@@ -329,7 +352,6 @@
 			isa = PBXGroup;
 			children = (
 				71F29B012CEFD64200EE27C8 /* Cells */,
-				71F29AFF2CEFD35900EE27C8 /* HerosTableViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -501,6 +523,7 @@
 				7120FBD92CED3A350083F689 /* LoginUseCaseProtocol.swift in Sources */,
 				3B51D8BC2CF5046A00D0DC1D /* TransformationsModel.swift in Sources */,
 				71F29AFE2CEFD26C00EE27C8 /* HerosViewModel.swift in Sources */,
+				3B3134C82CF5E57300FDAA32 /* TransformationsViewModel.swift in Sources */,
 				7120FBD32CED38FF0083F689 /* AppState.swift in Sources */,
 				7120FBAE2CED246B0083F689 /* AppDelegate.swift in Sources */,
 				71F29AF62CEFCD2000EE27C8 /* HerosRepositoryProtocol.swift in Sources */,
@@ -510,6 +533,7 @@
 				71F29AF82CEFCD6F00EE27C8 /* NetworkHeros.swift in Sources */,
 				7120FBD12CED2D8E0083F689 /* LoginView.swift in Sources */,
 				71F29B002CEFD35900EE27C8 /* HerosTableViewController.swift in Sources */,
+				3B3134C62CF5E33C00FDAA32 /* TransformationsTableViewController.swift in Sources */,
 				7120FBE22CED3BAF0083F689 /* ConstantsApp.swift in Sources */,
 				71F29AFC2CEFD09D00EE27C8 /* HeroUseCase.swift in Sources */,
 				7120FBE42CED3C350083F689 /* NetworkLogin.swift in Sources */,
