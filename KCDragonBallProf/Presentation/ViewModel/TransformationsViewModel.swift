@@ -2,6 +2,7 @@ import Foundation
 import Combine
 
 final class TransformationsViewModel: ObservableObject {
+    
     @Published var transformationsData: [TransformationModel] = []
     private var useCase: TransformationsUseCaseProtocol
     private var subscriptions = Set<AnyCancellable>()

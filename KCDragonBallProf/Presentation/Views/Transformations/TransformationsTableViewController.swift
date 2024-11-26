@@ -1,9 +1,3 @@
-//
-//  TransformationsTableViewController.swift
-//  Dragon Ball
-//
-//  Created by Javier Muñoz on 26/11/24.
-//
 
 import UIKit
 import Combine

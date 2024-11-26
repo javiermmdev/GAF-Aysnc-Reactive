@@ -1,9 +1,3 @@
-//
-//  HerosTableViewCell.swift
-//  KCDragonBallProf
-//
-//  Created by EScode on 21/11/24.
-//
 
 import UIKit
 
