@@ -1,6 +1,5 @@
 import UIKit
 import Combine
-@testable import KCDragonBallProf
 
 final class DetailHeroViewController: UIViewController {
     
