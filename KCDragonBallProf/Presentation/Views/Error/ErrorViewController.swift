@@ -24,6 +24,9 @@ class ErrorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.labelError.text = self.error
+        
+        self.backButton.setTitle(NSLocalizedString("Home", comment: "Título del botón para volver al inicio"), for: .normal)
+        
         self.backButton.tapPublisher
             .sink {
                 self.appState?.statusLogin = .none

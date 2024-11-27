@@ -1,5 +1,7 @@
-
-
 "Email" = "Correo electrónico";
 "Password" = "Clave";
 "Login" = "Entrar";
+"Home" = "Inicio";
+"HeroList" = "Lista de Heroes";
+"Transformations" = "Transformaciones";
+"TransformationList" = "Lista de Transformaciones";

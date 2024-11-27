@@ -88,13 +88,13 @@ class LoginView: UIView {
             emailTextfield.heightAnchor.constraint(equalToConstant: 50),
             
             //password
-            passwordTextfield.topAnchor.constraint(equalTo: emailTextfield.bottomAnchor, constant: 40),
+            passwordTextfield.topAnchor.constraint(equalTo: emailTextfield.bottomAnchor, constant: 25),
             passwordTextfield.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             passwordTextfield.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
             passwordTextfield.heightAnchor.constraint(equalToConstant: 50),
             
             //button login
-            buttonLogin.topAnchor.constraint(equalTo: passwordTextfield.bottomAnchor, constant: 75),
+            buttonLogin.topAnchor.constraint(equalTo: passwordTextfield.bottomAnchor, constant: 50),
             buttonLogin.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 80),
             buttonLogin.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -80),
             buttonLogin.heightAnchor.constraint(equalToConstant: 50),

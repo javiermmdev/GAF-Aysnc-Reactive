@@ -212,7 +212,6 @@
 		7120FBB62CED24850083F689 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				7120FBC12CED25FC0083F689 /* Extensions */,
 				7120FBBC2CED25C20083F689 /* Protocols */,
 				7120FBBF2CED25E50083F689 /* UseCases */,
 				7120FBBE2CED25D70083F689 /* Entities */,
@@ -289,13 +288,6 @@
 				71F29AFB2CEFD09D00EE27C8 /* HeroUseCase.swift */,
 			);
 			path = UseCases;
-			sourceTree = "<group>";
-		};
-		7120FBC12CED25FC0083F689 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		7120FBC22CED26090083F689 /* Views */ = {
