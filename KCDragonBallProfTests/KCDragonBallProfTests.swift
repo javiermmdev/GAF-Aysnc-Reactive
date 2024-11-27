@@ -457,14 +457,69 @@ final class KCDragonBallProfTests: XCTestCase {
             XCTAssertFalse(receivedData.first?.isEmpty ?? true) // Datos no deben estar vacíos
         }
     
-    // MARK: - Test de Inicialización
-        func testDetailHeroViewControllerInitialization() throws {
+ 
+    func testViewControllerInitialization() {
             let viewController = DetailHeroViewController()
             XCTAssertNotNil(viewController)
         }
         
- 
-
+        func testHeroAssignment() {
+            let heroMock = HerosModel(
+                id: UUID(),
+                favorite: false,
+                description: "Mock description",
+                photo: "https://example.com/image.png",
+                name: "Mock Hero"
+            )
+            
+            let viewController = DetailHeroViewController()
+            viewController.hero = heroMock
+            XCTAssertEqual(viewController.hero?.name, "Mock Hero")
+            XCTAssertEqual(viewController.hero?.description, "Mock description")
+            XCTAssertEqual(viewController.hero?.photo, "https://example.com/image.png")
+        }
+        
+        func testViewDidLoadDoesNotCrash() {
+            let heroMock = HerosModel(
+                id: UUID(),
+                favorite: false,
+                description: "Mock description",
+                photo: "https://example.com/image.png",
+                name: "Mock Hero"
+            )
+            
+            let viewController = DetailHeroViewController()
+            viewController.hero = heroMock
+            
+            XCTAssertNoThrow(viewController.viewDidLoad())
+        }
+        
+        func testViewControllerHandlesNilHeroGracefully() {
+            let viewController = DetailHeroViewController()
+            XCTAssertNoThrow(viewController.viewDidLoad())
+        }
+        
+        func testNavigationWhenTransformationsButtonTapped() {
+            let heroMock = HerosModel(
+                id: UUID(),
+                favorite: false,
+                description: "Mock description",
+                photo: "https://example.com/image.png",
+                name: "Mock Hero"
+            )
+            
+            let viewController = DetailHeroViewController()
+            viewController.hero = heroMock
+            
+            let navigationController = UINavigationController(rootViewController: viewController)
+            XCTAssertEqual(navigationController.viewControllers.count, 1)
+            
+            // Simula el toque del botón de transformaciones
+            viewController.didTapTransformationsButton()
+            
+            XCTAssertEqual(navigationController.viewControllers.count, 2)
+            XCTAssertTrue(navigationController.topViewController is TransformationsTableViewController)
+        }
         
     }
 
