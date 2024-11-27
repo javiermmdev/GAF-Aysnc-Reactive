@@ -36,7 +36,12 @@ class LoginView: UIView {
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 10
         textField.layer.masksToBounds = true //Para que se vea el borde redondeado
-        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
+        textField.isSecureTextEntry = true // Convertirlo en un secureTextField
+        textField.autocapitalizationType = .none // Evitar que la primera letra sea mayúscula
+        textField.attributedPlaceholder = NSAttributedString(
+            string: textField.placeholder!,
+            attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray]
+        )
         textField.placeholder = NSLocalizedString("Password", comment: "Password del usuario")
         return textField
     }()
