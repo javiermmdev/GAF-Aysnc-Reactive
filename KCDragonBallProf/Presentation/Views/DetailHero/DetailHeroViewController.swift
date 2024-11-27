@@ -1,21 +1,21 @@
 import UIKit
 import Combine
+@testable import KCDragonBallProf
 
 final class DetailHeroViewController: UIViewController {
     
     var hero: HerosModel?
-    var viewModel: HeroDetailViewModel! // Cambiado a `var` para acceso desde los tests
+    private var viewModel: HeroDetailViewModel!
     private var cancellables = Set<AnyCancellable>()
     
-    // Cambiado a `internal` para que sea accesible desde los tests
-    let photoImageView: UIImageView = {
+    private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textAlignment = .center
@@ -23,7 +23,7 @@ final class DetailHeroViewController: UIViewController {
         return label
     }()
 
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .justified
@@ -32,7 +32,7 @@ final class DetailHeroViewController: UIViewController {
         return label
     }()
 
-    let transformationsButton: UIButton = {
+    private let transformationsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(NSLocalizedString("Transformations", comment: "Título del botón para mostrar transformaciones"), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
@@ -55,15 +55,18 @@ final class DetailHeroViewController: UIViewController {
         }
     }
 
-    func setupUI() { // Cambiado a `internal`
+    private func setupUI() {
+        // Añadir el scrollView
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
 
+        // Añadir subviews al contentView
         contentView.addSubview(photoImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(transformationsButton)
 
+        // Configurar Auto Layout para el scrollView y el contentView
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -77,27 +80,32 @@ final class DetailHeroViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
 
+        // Configurar Auto Layout para los elementos dentro del contentView
         NSLayoutConstraint.activate([
+            // Imagen
             photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             photoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             photoImageView.heightAnchor.constraint(equalToConstant: 200),
 
+            // Nombre
             nameLabel.topAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: 20),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
 
+            // Descripción
             descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
 
+            // Botón
             transformationsButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
             transformationsButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             transformationsButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
     }
 
-    func bindViewModel() { // Cambiado a `internal`
+    private func bindViewModel() {
         viewModel.$isTransformationsButtonVisible
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isVisible in
@@ -106,7 +114,7 @@ final class DetailHeroViewController: UIViewController {
             .store(in: &cancellables)
     }
 
-    func loadHeroData() { // Cambiado a `internal`
+    private func loadHeroData() {
         let heroDetails = viewModel.getHeroDetails()
         nameLabel.text = heroDetails.name
         descriptionLabel.text = heroDetails.description
@@ -115,33 +123,38 @@ final class DetailHeroViewController: UIViewController {
         }
     }
     
-    func setupActions() { // Cambiado a `internal`
+    private func setupActions() {
         transformationsButton.addTarget(self, action: #selector(didTapTransformationsButton), for: .touchUpInside)
     }
 
-    @objc func didTapTransformationsButton() { // Cambiado a `internal`
+    @objc private func didTapTransformationsButton() {
         guard let heroId = hero?.id else {
             print("Hero ID is missing")
             return
         }
         
+        // Crear el ViewModel para Transformations
         let transformationsViewModel = TransformationsViewModel()
+        
+        // Crear el controlador de TransformationsTableViewController
         let transformationsVC = TransformationsTableViewController(viewModel: transformationsViewModel)
         
+        // Navegar a TransformationsTableViewController
         self.navigationController?.pushViewController(transformationsVC, animated: true)
         
+        // Fetch transformaciones para el héroe actual
         Task {
             await transformationsViewModel.fetchTransformations(heroName: heroId.uuidString)
         }
     }
     
-    let scrollView: UIScrollView = {
+    private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
 
-    let contentView: UIView = {
+    private let contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
