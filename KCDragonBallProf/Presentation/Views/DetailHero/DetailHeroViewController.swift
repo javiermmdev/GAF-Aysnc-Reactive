@@ -4,17 +4,17 @@ import Combine
 final class DetailHeroViewController: UIViewController {
     
     var hero: HerosModel?
-    var viewModel: HeroDetailViewModel!
+    private var viewModel: HeroDetailViewModel!
     private var cancellables = Set<AnyCancellable>()
     
-    let photoImageView: UIImageView = {
+    private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textAlignment = .center
@@ -22,7 +22,7 @@ final class DetailHeroViewController: UIViewController {
         return label
     }()
 
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .justified
@@ -31,9 +31,9 @@ final class DetailHeroViewController: UIViewController {
         return label
     }()
 
-    let transformationsButton: UIButton = {
+    private let transformationsButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(NSLocalizedString("Transformations", comment: "Título del botón para mostrar transformaciones"), for: .normal)
+        button.setTitle("Transformaciones", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isHidden = true // Oculto por defecto
@@ -54,7 +54,7 @@ final class DetailHeroViewController: UIViewController {
         }
     }
 
-    func setupUI() {
+    private func setupUI() {
         // Añadir el scrollView
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -113,7 +113,7 @@ final class DetailHeroViewController: UIViewController {
             .store(in: &cancellables)
     }
 
-    func loadHeroData() {
+    private func loadHeroData() {
         let heroDetails = viewModel.getHeroDetails()
         nameLabel.text = heroDetails.name
         descriptionLabel.text = heroDetails.description
@@ -126,7 +126,7 @@ final class DetailHeroViewController: UIViewController {
         transformationsButton.addTarget(self, action: #selector(didTapTransformationsButton), for: .touchUpInside)
     }
 
-    @objc func didTapTransformationsButton() {
+    @objc private func didTapTransformationsButton() {
         guard let heroId = hero?.id else {
             print("Hero ID is missing")
             return
