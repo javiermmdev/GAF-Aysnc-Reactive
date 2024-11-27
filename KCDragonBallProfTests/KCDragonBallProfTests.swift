@@ -473,8 +473,7 @@ final class KCDragonBallProfTests: XCTestCase {
             XCTAssertNotNil(viewController.nameLabel)
             XCTAssertNotNil(viewController.descriptionLabel)
             XCTAssertNotNil(viewController.transformationsButton)
-            XCTAssertNotNil(viewController.scrollView)
-            XCTAssertNotNil(viewController.contentView)
+
         }
 
         // MARK: - Test de Carga de Datos

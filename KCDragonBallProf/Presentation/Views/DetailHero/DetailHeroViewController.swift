@@ -113,7 +113,7 @@ final class DetailHeroViewController: UIViewController {
             .store(in: &cancellables)
     }
 
-    private func loadHeroData() {
+    func loadHeroData() {
         let heroDetails = viewModel.getHeroDetails()
         nameLabel.text = heroDetails.name
         descriptionLabel.text = heroDetails.description
@@ -126,7 +126,7 @@ final class DetailHeroViewController: UIViewController {
         transformationsButton.addTarget(self, action: #selector(didTapTransformationsButton), for: .touchUpInside)
     }
 
-    @objc private func didTapTransformationsButton() {
+    @objc func didTapTransformationsButton() {
         guard let heroId = hero?.id else {
             print("Hero ID is missing")
             return
