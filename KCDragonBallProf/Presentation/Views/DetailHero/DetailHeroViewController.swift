@@ -33,7 +33,7 @@ final class DetailHeroViewController: UIViewController {
 
     private let transformationsButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Transformaciones", for: .normal)
+        button.setTitle(NSLocalizedString("Transformations", comment: "Título del botón para mostrar transformaciones"), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isHidden = true // Oculto por defecto
