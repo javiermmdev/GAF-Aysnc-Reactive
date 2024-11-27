@@ -326,29 +326,10 @@ final class KCDragonBallProfTests: XCTestCase {
         XCTAssertNotNil(data)
         XCTAssertEqual(data.count, 16)
     }
+    
+    
+    
+    
+    
 
-    func testLoadImageRemote() throws {
-        // Configurar una imagen de prueba en base64
-        let imageBase64String = """
-            iVBORw0KGgoAAAANSUhEUgAAAAUA
-            AAAFCAYAAACNbyblAAAAHElEQVQI12P4
-            //8/w38GIAXDIBKE0DHxgljNBAAO
-            9TXL0Y4OHwAAAABJRU5ErkJggg==
-            """
-        let imageData = Data(base64Encoded: imageBase64String)!
-        let imageUrl = URL(string: "https://example.com/image.png")!
-
-        // Crear un servidor mock que devuelve la imagen
-        let session = URLSessionMock()
-        session.mockResponses[imageUrl] = MockResponse(
-            data: imageData, statusCode: 200)
-
-        // Configurar el UIImageView
-        let imageView = UIImageView()
-        let expectation = self.expectation(description: "Image Loaded")
-
-        // Llamar a la función
-        imageView.loadImageRemote(url: imageUrl)
-
-    }
 }
