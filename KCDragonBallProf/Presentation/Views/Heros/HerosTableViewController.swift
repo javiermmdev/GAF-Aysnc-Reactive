@@ -21,7 +21,7 @@ class HerosTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "HerosTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeSession))
-        self.title = "Lista de Heroes"
+        self.title = NSLocalizedString("HeroList", comment: "Título para la lista de héroes")
         self.bindingUI()
     }
     
