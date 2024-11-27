@@ -258,7 +258,7 @@ final class KCDragonBallProfTests: XCTestCase {
         let data = await useCase.getTransformations(
             heroId: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94")
         XCTAssertNotNil(data)
-        XCTAssertEqual(data.count, 16)  // Mockeadas desde JSON
+        XCTAssertEqual(data.count, 16)
     }
 
     // MARK: - Test Transformations Combine
@@ -318,7 +318,7 @@ final class KCDragonBallProfTests: XCTestCase {
             useCase: TransformationsUseCaseFake())
         viewModel.transformationsData = []
 
-        XCTAssertEqual(viewModel.transformationsData.count, 0)  // Sin datos debería estar vacío
+        XCTAssertEqual(viewModel.transformationsData.count, 0)
     }
 
     // MARK: - Test NetworkTransformations
@@ -360,39 +360,33 @@ final class KCDragonBallProfTests: XCTestCase {
         let appDelegate = AppDelegate()
         let application = UIApplication.shared
         let result = appDelegate.application(application, didFinishLaunchingWithOptions: nil)
-        XCTAssertTrue(result) // Verifica que el método devuelve `true`
+        XCTAssertTrue(result)
     }
 
     func testDidDiscardSceneSessions() {
         let appDelegate = AppDelegate()
         let application = UIApplication.shared
         
-        // Llama al método y asegúrate de que no se produce ningún error
         XCTAssertNoThrow(appDelegate.application(application, didDiscardSceneSessions: Set<UISceneSession>()))
     }
         
     func testHerosTableViewCellInitialization() throws {
-        // Carga el nib de la celda
         let nib = UINib(nibName: "HerosTableViewCell", bundle: Bundle.main)
         XCTAssertNotNil(nib)
         
-        // Instancia la celda
         let cell = nib.instantiate(withOwner: nil, options: nil).first as? HerosTableViewCell
         XCTAssertNotNil(cell)
         
-        // Verifica que los IBOutlet estén conectados
         XCTAssertNotNil(cell?.photo)
         XCTAssertNotNil(cell?.title)
     }
     
     func testSetSelectedState() {
-        // Instancia la celda de forma manual
         let cell = HerosTableViewCell()
         XCTAssertNotNil(cell)
         
-        // Llama al método setSelected para cambiar el estado de la celda
         cell.setSelected(true, animated: false)
-        XCTAssertTrue(cell.isSelected) // Verifica que la celda está seleccionada
+        XCTAssertTrue(cell.isSelected)
     }
     
     // MARK: - Test Inicialización
@@ -411,7 +405,6 @@ final class KCDragonBallProfTests: XCTestCase {
             
             let expectation = self.expectation(description: "Transformations Fetched")
             
-            // Observar cambios en transformationsData
             viewModel.$transformationsData
                 .dropFirst()
                 .sink { transformations in
@@ -420,10 +413,8 @@ final class KCDragonBallProfTests: XCTestCase {
                 }
                 .store(in: &subscriptions)
             
-            // Llamar a fetchTransformations
             await viewModel.fetchTransformations(heroName: "TestHero")
             
-            // Esperar al cambio en transformationsData
             wait(for: [expectation], timeout: 2.0)
         }
   
@@ -433,7 +424,6 @@ final class KCDragonBallProfTests: XCTestCase {
             let useCase = TransformationsUseCaseFake()
             let viewModel = TransformationsViewModel(useCase: useCase)
             
-            // Observar cambios en transformationsData
             var receivedData: [[TransformationModel]] = []
             let expectation = self.expectation(description: "Publisher emits data")
             
@@ -447,10 +437,8 @@ final class KCDragonBallProfTests: XCTestCase {
                 }
                 .store(in: &subscriptions)
             
-            // Llamar a fetchTransformations
             await viewModel.fetchTransformations(heroName: "TestHero")
             
-            // Esperar la emisión de Combine
             wait(for: [expectation], timeout: 2.0)
             
             XCTAssertEqual(receivedData.count, 1) // Debe emitir datos una vez
@@ -514,7 +502,6 @@ final class KCDragonBallProfTests: XCTestCase {
             let navigationController = UINavigationController(rootViewController: viewController)
             XCTAssertEqual(navigationController.viewControllers.count, 1)
             
-            // Simula el toque del botón de transformaciones
             viewController.didTapTransformationsButton()
             
             XCTAssertEqual(navigationController.viewControllers.count, 2)
