@@ -19,7 +19,7 @@ class TransformationsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "HerosTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
-        self.title = "Lista de Transformaciones"
+        self.title = NSLocalizedString("TransformationList", comment: "Título para la lista de transformaciones")
         self.bindingUI()
     }
     
