@@ -7,6 +7,9 @@ import XCTest
 @testable import KCDragonBallProf
 
 final class KCDragonBallProfTests: XCTestCase {
+    
+    private var subscriptions = Set<AnyCancellable>()
+
 
     override func setUpWithError() throws {
     }
@@ -327,9 +330,229 @@ final class KCDragonBallProfTests: XCTestCase {
         XCTAssertEqual(data.count, 16)
     }
     
-    
-    
-    
-    
+    func testHeroDetailViewModelInitialization() {
+        let hero = HerosModel(
+            id: UUID(),
+            favorite: false,
+            description: "A test hero",
+            photo: "https://example.com/photo.png",
+            name: "Test Hero"
+        )
+        let repository = TransformationsRepositoryFake()
+        let viewModel = HeroDetailViewModel(hero: hero, repository: repository)
 
-}
+        XCTAssertNotNil(viewModel)
+        XCTAssertFalse(viewModel.isTransformationsButtonVisible)
+
+        let details = viewModel.getHeroDetails()
+        XCTAssertEqual(details.name, hero.name)
+        XCTAssertEqual(details.description, hero.description)
+        XCTAssertEqual(details.photo, hero.photo)
+        
+    }
+    
+    func testAppDelegateInitialization() {
+        let appDelegate = AppDelegate()
+        XCTAssertNotNil(appDelegate)
+    }
+    
+    func testDidFinishLaunchingWithOptions() {
+        let appDelegate = AppDelegate()
+        let application = UIApplication.shared
+        let result = appDelegate.application(application, didFinishLaunchingWithOptions: nil)
+        XCTAssertTrue(result) // Verifica que el método devuelve `true`
+    }
+
+    func testDidDiscardSceneSessions() {
+        let appDelegate = AppDelegate()
+        let application = UIApplication.shared
+        
+        // Llama al método y asegúrate de que no se produce ningún error
+        XCTAssertNoThrow(appDelegate.application(application, didDiscardSceneSessions: Set<UISceneSession>()))
+    }
+        
+    func testHerosTableViewCellInitialization() throws {
+        // Carga el nib de la celda
+        let nib = UINib(nibName: "HerosTableViewCell", bundle: Bundle.main)
+        XCTAssertNotNil(nib)
+        
+        // Instancia la celda
+        let cell = nib.instantiate(withOwner: nil, options: nil).first as? HerosTableViewCell
+        XCTAssertNotNil(cell)
+        
+        // Verifica que los IBOutlet estén conectados
+        XCTAssertNotNil(cell?.photo)
+        XCTAssertNotNil(cell?.title)
+    }
+    
+    func testSetSelectedState() {
+        // Instancia la celda de forma manual
+        let cell = HerosTableViewCell()
+        XCTAssertNotNil(cell)
+        
+        // Llama al método setSelected para cambiar el estado de la celda
+        cell.setSelected(true, animated: false)
+        XCTAssertTrue(cell.isSelected) // Verifica que la celda está seleccionada
+    }
+    
+    // MARK: - Test Inicialización
+        func testTransformationsViewModelInitialization() {
+            let useCase = TransformationsUseCaseFake()
+            let viewModel = TransformationsViewModel(useCase: useCase)
+            
+            XCTAssertNotNil(viewModel)
+            XCTAssertTrue(viewModel.transformationsData.isEmpty) // transformationsData debe estar vacío al inicio
+        }
+
+        // MARK: - Test FetchTransformations con Datos Mockeados
+        func testFetchTransformationsWithData() async {
+            let useCase = TransformationsUseCaseFake()
+            let viewModel = TransformationsViewModel(useCase: useCase)
+            
+            let expectation = self.expectation(description: "Transformations Fetched")
+            
+            // Observar cambios en transformationsData
+            viewModel.$transformationsData
+                .dropFirst()
+                .sink { transformations in
+                    XCTAssertFalse(transformations.isEmpty) // Debe contener datos mockeados
+                    expectation.fulfill()
+                }
+                .store(in: &subscriptions)
+            
+            // Llamar a fetchTransformations
+            await viewModel.fetchTransformations(heroName: "TestHero")
+            
+            // Esperar al cambio en transformationsData
+            wait(for: [expectation], timeout: 2.0)
+        }
+  
+
+        // MARK: - Test Publicación Correcta con Combine
+        func testTransformationsDataPublisher() async {
+            let useCase = TransformationsUseCaseFake()
+            let viewModel = TransformationsViewModel(useCase: useCase)
+            
+            // Observar cambios en transformationsData
+            var receivedData: [[TransformationModel]] = []
+            let expectation = self.expectation(description: "Publisher emits data")
+            
+            viewModel.$transformationsData
+                .dropFirst()
+                .sink { data in
+                    receivedData.append(data)
+                    if receivedData.count == 1 {
+                        expectation.fulfill()
+                    }
+                }
+                .store(in: &subscriptions)
+            
+            // Llamar a fetchTransformations
+            await viewModel.fetchTransformations(heroName: "TestHero")
+            
+            // Esperar la emisión de Combine
+            wait(for: [expectation], timeout: 2.0)
+            
+            XCTAssertEqual(receivedData.count, 1) // Debe emitir datos una vez
+            XCTAssertFalse(receivedData.first?.isEmpty ?? true) // Datos no deben estar vacíos
+        }
+    
+    // MARK: - Test de Inicialización
+        func testDetailHeroViewControllerInitialization() throws {
+            let viewController = DetailHeroViewController()
+            XCTAssertNotNil(viewController)
+        }
+        
+        // MARK: - Test Configuración de UI
+        func testUIElementsAreSetUp() throws {
+            let viewController = DetailHeroViewController()
+            viewController.loadViewIfNeeded() // Carga la vista
+
+            // Verificar que los elementos están inicializados
+            XCTAssertNotNil(viewController.photoImageView)
+            XCTAssertNotNil(viewController.nameLabel)
+            XCTAssertNotNil(viewController.descriptionLabel)
+            XCTAssertNotNil(viewController.transformationsButton)
+            XCTAssertNotNil(viewController.scrollView)
+            XCTAssertNotNil(viewController.contentView)
+        }
+
+        // MARK: - Test de Carga de Datos
+        func testLoadHeroData() throws {
+            // Crear datos mock del héroe
+            let heroMock = HerosModel(
+                id: UUID(),
+                favorite: false,
+                description: "Mock description",
+                photo: "https://example.com/image.png",
+                name: "Mock Hero"
+            )
+
+            // Inicializar el controlador con el héroe
+            let viewController = DetailHeroViewController()
+            viewController.hero = heroMock
+            viewController.loadViewIfNeeded()
+            
+            // Mock del ViewModel
+            viewController.viewModel = HeroDetailViewModel(hero: heroMock)
+
+            // Llamar a la función loadHeroData
+            viewController.loadHeroData()
+
+            // Verificar los datos cargados en la UI
+            XCTAssertEqual(viewController.nameLabel.text, "Mock Hero")
+            XCTAssertEqual(viewController.descriptionLabel.text, "Mock description")
+            XCTAssertNotNil(viewController.photoImageView.image) // Si está cargando imágenes remotas, puede ser nil inicialmente
+        }
+        
+        // MARK: - Test de Visibilidad del Botón
+        func testTransformationsButtonVisibility() {
+            let heroMock = HerosModel(
+                id: UUID(),
+                favorite: false,
+                description: "Mock description",
+                photo: "https://example.com/image.png",
+                name: "Mock Hero"
+            )
+
+            let viewController = DetailHeroViewController()
+            viewController.hero = heroMock
+            viewController.loadViewIfNeeded()
+
+            // Mock del ViewModel
+            let viewModel = HeroDetailViewModel(hero: heroMock)
+            viewController.viewModel = viewModel
+            
+            // Simular la visibilidad del botón
+            viewModel.isTransformationsButtonVisible = true
+            XCTAssertFalse(viewController.transformationsButton.isHidden)
+            
+            viewModel.isTransformationsButtonVisible = false
+            XCTAssertTrue(viewController.transformationsButton.isHidden)
+        }
+        
+        // MARK: - Test de Acción del Botón
+        func testTransformationsButtonAction() {
+            let heroMock = HerosModel(
+                id: UUID(),
+                favorite: false,
+                description: "Mock description",
+                photo: "https://example.com/image.png",
+                name: "Mock Hero"
+            )
+
+            let viewController = DetailHeroViewController()
+            viewController.hero = heroMock
+            viewController.loadViewIfNeeded()
+
+            // Simular navegación
+            let navigationController = UINavigationController(rootViewController: viewController)
+            viewController.didTapTransformationsButton()
+
+            // Verificar que el nuevo controlador se ha empujado
+            XCTAssertEqual(navigationController.viewControllers.count, 2)
+            XCTAssertTrue(navigationController.topViewController is TransformationsTableViewController)
+        }
+
+    }
+

@@ -17,6 +17,7 @@
 		3B51D8C42CF508AD00D0DC1D /* TransformationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8C32CF508A800D0DC1D /* TransformationsRepository.swift */; };
 		3B51D8C62CF50A9B00D0DC1D /* HeroDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8C52CF50A9600D0DC1D /* HeroDetailViewModel.swift */; };
 		3B51D8C82CF50F1F00D0DC1D /* NetworkTransformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8C72CF50F1300D0DC1D /* NetworkTransformations.swift */; };
+		3BA2D2EB2CF78DA000B49537 /* DetailHeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D8B52CF4FD5800D0DC1D /* DetailHeroViewController.swift */; };
 		7120FBAE2CED246B0083F689 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120FBA42CED246B0083F689 /* AppDelegate.swift */; };
 		7120FBAF2CED246B0083F689 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120FBAB2CED246B0083F689 /* SceneDelegate.swift */; };
 		7120FBB12CED246B0083F689 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7120FBA52CED246B0083F689 /* Assets.xcassets */; };
@@ -528,6 +529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BA2D2EB2CF78DA000B49537 /* DetailHeroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

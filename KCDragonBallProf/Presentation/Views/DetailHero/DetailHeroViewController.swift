@@ -4,17 +4,17 @@ import Combine
 final class DetailHeroViewController: UIViewController {
     
     var hero: HerosModel?
-    private var viewModel: HeroDetailViewModel!
+    var viewModel: HeroDetailViewModel!
     private var cancellables = Set<AnyCancellable>()
     
-    private let photoImageView: UIImageView = {
+    let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    private let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textAlignment = .center
@@ -22,7 +22,7 @@ final class DetailHeroViewController: UIViewController {
         return label
     }()
 
-    private let descriptionLabel: UILabel = {
+    let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .justified
@@ -31,7 +31,7 @@ final class DetailHeroViewController: UIViewController {
         return label
     }()
 
-    private let transformationsButton: UIButton = {
+    let transformationsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(NSLocalizedString("Transformations", comment: "Título del botón para mostrar transformaciones"), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
@@ -54,7 +54,7 @@ final class DetailHeroViewController: UIViewController {
         }
     }
 
-    private func setupUI() {
+    func setupUI() {
         // Añadir el scrollView
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
