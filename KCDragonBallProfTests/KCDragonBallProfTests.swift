@@ -1,8 +1,9 @@
-import XCTest
 import Combine
-import KcLibraryswift
 import CombineCocoa
+import KcLibraryswift
 import UIKit
+import XCTest
+
 @testable import KCDragonBallProf
 
 final class KCDragonBallProfTests: XCTestCase {
@@ -12,83 +13,81 @@ final class KCDragonBallProfTests: XCTestCase {
 
     override func tearDownWithError() throws {
     }
-    
+
     func testKeyChainLibrary() throws {
         let KC = KeyChainKC()
         XCTAssertNotNil(KC)
-        
+
         let save = KC.saveKC(key: "Test", value: "123")
         XCTAssertEqual(save, true)
-        
+
         let value = KC.loadKC(key: "Test")
         if let valor = value {
             XCTAssertEqual(valor, "123")
         }
         XCTAssertNoThrow(KC.deleteKC(key: "Test"))
     }
-    
+
     func testLoginFake() async throws {
         let KC = KeyChainKC()
         XCTAssertNotNil(KC)
-        
-        
+
         let obj = LoginUseCaseFake()
         XCTAssertNotNil(obj)
-        
+
         //Validate Token
         let resp = await obj.validateToken()
         XCTAssertEqual(resp, true)
-        
-        
+
         // login
         let loginDo = await obj.loginApp(user: "", password: "")
         XCTAssertEqual(loginDo, true)
         var jwt = KC.loadKC(key: ConstantsApp.CONST_TOKEN_ID_KEYCHAIN)
         XCTAssertNotEqual(jwt, "")
-        
+
         //Close Session
         await obj.logout()
         jwt = KC.loadKC(key: ConstantsApp.CONST_TOKEN_ID_KEYCHAIN)
         XCTAssertEqual(jwt, "")
     }
-    
-    func testLoginReal() async throws  {
+
+    func testLoginReal() async throws {
         let CK = KeyChainKC()
         XCTAssertNotNil(CK)
         //reset the token
         CK.saveKC(key: ConstantsApp.CONST_TOKEN_ID_KEYCHAIN, value: "")
-        
+
         //Caso se uso con repo Fake
         let userCase = LoginUseCase(repo: LoginRepositoryFake())
         XCTAssertNotNil(userCase)
-        
+
         //validacion
         let resp = await userCase.validateToken()
         XCTAssertEqual(resp, false)
-        
+
         //login
         let loginDo = await userCase.loginApp(user: "", password: "")
         XCTAssertEqual(loginDo, true)
         var jwt = CK.loadKC(key: ConstantsApp.CONST_TOKEN_ID_KEYCHAIN)
         XCTAssertNotEqual(jwt, "")
-        
+
         //Close Session
         await userCase.logout()
         jwt = CK.loadKC(key: ConstantsApp.CONST_TOKEN_ID_KEYCHAIN)
         XCTAssertEqual(jwt, "")
     }
-    
-    func testLoginAutoLoginAsincrono()  throws  {
+
+    func testLoginAutoLoginAsincrono() throws {
         var suscriptor = Set<AnyCancellable>()
         let exp = self.expectation(description: "Login Auto ")
-        
+
         let vm = AppState(loginUseCase: LoginUseCaseFake())
         XCTAssertNotNil(vm)
-        
+
         vm.$statusLogin
             .sink { completion in
-                switch completion{
-                    
+                switch completion {
+
                 case .finished:
                     print("finalizado")
                 }
@@ -100,28 +99,29 @@ final class KCDragonBallProfTests: XCTestCase {
             }
             .store(in: &suscriptor)
 
-         vm.validateControlLogin()
-        
+        vm.validateControlLogin()
+
         self.waitForExpectations(timeout: 10)
     }
-    
-    func testUIErrorView() async throws  {
+
+    func testUIErrorView() async throws {
 
         let appStateVM = AppState(loginUseCase: LoginUseCaseFake())
         XCTAssertNotNil(appStateVM)
 
         appStateVM.statusLogin = .error
-        
-        let vc = await ErrorViewController(appState: appStateVM, error: "Error Testing")
+
+        let vc = await ErrorViewController(
+            appState: appStateVM, error: "Error Testing")
         XCTAssertNotNil(vc)
     }
-    
-    func testUILoginView()  throws  {
+
+    func testUILoginView() throws {
         XCTAssertNoThrow(LoginView())
         let view = LoginView()
         XCTAssertNotNil(view)
-        
-        let logo =   view.getLogoImageView()
+
+        let logo = view.getLogoImageView()
         XCTAssertNotNil(logo)
         let txtUser = view.getEmailView()
         XCTAssertNotNil(txtUser)
@@ -129,190 +129,226 @@ final class KCDragonBallProfTests: XCTestCase {
         XCTAssertNotNil(txtPass)
         let button = view.getLoginButtonView()
         XCTAssertNotNil(button)
-        
-        XCTAssertEqual(txtUser.placeholder, NSLocalizedString("Email", comment: ""))
-        XCTAssertEqual(txtPass.placeholder, NSLocalizedString("Password", comment: ""))
-        XCTAssertEqual(button.titleLabel?.text, NSLocalizedString("Login", comment: ""))
-        
-        
+
+        XCTAssertEqual(
+            txtUser.placeholder, NSLocalizedString("Email", comment: ""))
+        XCTAssertEqual(
+            txtPass.placeholder, NSLocalizedString("Password", comment: ""))
+        XCTAssertEqual(
+            button.titleLabel?.text, NSLocalizedString("Login", comment: ""))
+
         //la vista esta generada
-       let View2 =  LoginViewController(appState: AppState(loginUseCase: LoginUseCaseFake()))
-       XCTAssertNotNil(View2)
-        XCTAssertNoThrow(View2.loadView()) //generamos la vista
+        let View2 = LoginViewController(
+            appState: AppState(loginUseCase: LoginUseCaseFake()))
+        XCTAssertNotNil(View2)
+        XCTAssertNoThrow(View2.loadView())  //generamos la vista
         XCTAssertNotNil(View2.loginButton)
         XCTAssertNotNil(View2.emailTextfield)
         XCTAssertNotNil(View2.logo)
         XCTAssertNotNil(View2.passwordTextfield)
-        
+
         //el binding
         XCTAssertNoThrow(View2.bindingUI())
-        
+
         View2.emailTextfield?.text = "Hola"
-        
+
         //el boton debe estar desactivado
         XCTAssertEqual(View2.emailTextfield?.text, "Hola")
     }
-    
-    func testHeroiewViewModel() async throws  {
+
+    func testHeroiewViewModel() async throws {
         let vm = HerosViewModel(useCase: HeroUseCaseFake())
         XCTAssertNotNil(vm)
-        XCTAssertEqual(vm.herosData.count, 15) //debe haber 15 heroes Fake mokeados
+        XCTAssertEqual(vm.herosData.count, 15)  //debe haber 15 heroes Fake mokeados
     }
-    
-    func testHerosUseCase() async throws  {
-       let caseUser = HeroUseCase(repo: HerosRepositoryFake())
+
+    func testHerosUseCase() async throws {
+        let caseUser = HeroUseCase(repo: HerosRepositoryFake())
         XCTAssertNotNil(caseUser)
-        
+
         let data = await caseUser.getHeros(filter: "")
         XCTAssertNotNil(data)
         XCTAssertEqual(data.count, 15)
     }
-    
-    func testHeros_Combine() async throws  {
+
+    func testHeros_Combine() async throws {
         var suscriptor = Set<AnyCancellable>()
         let exp = self.expectation(description: "Heros get")
-        
+
         let vm = HerosViewModel(useCase: HeroUseCaseFake())
         XCTAssertNotNil(vm)
-        
+
         vm.$herosData
             .sink { completion in
-                switch completion{
-                    
+                switch completion {
+
                 case .finished:
                     print("finalizado")
                 }
             } receiveValue: { data in
-      
+
                 if data.count == 2 {
                     exp.fulfill()
                 }
             }
             .store(in: &suscriptor)
-      
-        
+
         await self.waitForExpectations(timeout: 10)
     }
-    
-    func testHeros_Data() async throws  {
+
+    func testHeros_Data() async throws {
         let network = NetworkHerosFake()
         XCTAssertNotNil(network)
         let repo = HerosRepository(network: network)
         XCTAssertNotNil(repo)
-        
+
         let repo2 = HerosRepositoryFake()
         XCTAssertNotNil(repo2)
-        
+
         let data = await repo.getHeros(filter: "")
         XCTAssertNotNil(data)
         XCTAssertEqual(data.count, 15)
-        
-        
+
         let data2 = await repo2.getHeros(filter: "")
         XCTAssertNotNil(data2)
         XCTAssertEqual(data2.count, 15)
     }
-    
-    func testHeros_Domain() async throws  {
-       //Models
-        let model = HerosModel(id: UUID(), favorite: true, description: "des", photo: "url", name: "goku")
+
+    func testHeros_Domain() async throws {
+        //Models
+        let model = HerosModel(
+            id: UUID(), favorite: true, description: "des", photo: "url",
+            name: "goku")
         XCTAssertNotNil(model)
         XCTAssertEqual(model.name, "goku")
         XCTAssertEqual(model.favorite, true)
-        
+
         let requestModel = HeroModelRequest(name: "goku")
         XCTAssertNotNil(requestModel)
         XCTAssertEqual(requestModel.name, "goku")
     }
-    
-    func testHeros_Presentation() async throws  {
+
+    func testHeros_Presentation() async throws {
         let viewModel = HerosViewModel(useCase: HeroUseCaseFake())
         XCTAssertNotNil(viewModel)
-        
-        let view =  await HerosTableViewController(appState: AppState(loginUseCase: LoginUseCaseFake()), viewModel: viewModel)
+
+        let view = await HerosTableViewController(
+            appState: AppState(loginUseCase: LoginUseCaseFake()),
+            viewModel: viewModel)
         XCTAssertNotNil(view)
-        
+
     }
-    
+
     // MARK: - Test TransformationsViewModel
-       func testTransformationViewModel() async throws {
-           let vm = TransformationsViewModel(useCase: TransformationsUseCaseFake())
-           XCTAssertNotNil(vm)
-           XCTAssertEqual(vm.transformationsData.count, 0) // Deben haber 14 transformaciones mockeadas
-       }
-       
-       // MARK: - Test TransformationsUseCase
-       func testTransformationsUseCase() async throws {
-           let useCase = TransformationsUseCase(repo: TransformationsRepositoryFake())
-           XCTAssertNotNil(useCase)
-           
-           let data = await useCase.getTransformations(heroId: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94")
-           XCTAssertNotNil(data)
-           XCTAssertEqual(data.count, 16) // Mockeadas desde JSON
-       }
-       
-       // MARK: - Test Transformations Combine
-       func testTransformations_Combine() async throws {
-           var suscriptor = Set<AnyCancellable>()
-           let exp = self.expectation(description: "Transformations Load")
-           
-           let vm = TransformationsViewModel(useCase: TransformationsUseCaseFake())
-           XCTAssertNotNil(vm)
-           
-           vm.$transformationsData
-               .sink { completion in
-                   switch completion {
-                   case .finished:
-                       print("Finalizado")
-                   }
-               } receiveValue: { data in
-                   if data.count == 14 {
-                       exp.fulfill()
-                   }
-               }
-               .store(in: &suscriptor)
-           
-           await self.waitForExpectations(timeout: 10)
-       }
-       
-       // MARK: - Test Transformations Data
-       func testTransformations_Data() async throws {
-           let network = NetworkTransformationsFake()
-           XCTAssertNotNil(network)
-           let repo = TransformationsRepository(network: network)
-           XCTAssertNotNil(repo)
-           
-           let data = await repo.getTransformations(heroId: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94")
-           XCTAssertNotNil(data)
-           XCTAssertEqual(data.count, 16)
-       }
-       
-       // MARK: - Test Transformations Domain Models
-       func testTransformations_Domain() throws {
-           let model = TransformationModel(
-               id: "17824501-1106-4815-BC7A-BFDCCEE43CC9",
-               description: "Goku se transforma en un gran mono...",
-               photo: "https://areajugones.sport.es/wp-content/uploads/2021/05/ozarru.jpg.webp",
-               name: "1. Oozaru – Gran Mono"
-           )
-           XCTAssertNotNil(model)
-           XCTAssertEqual(model.name, "1. Oozaru – Gran Mono")
-           XCTAssertEqual(model.id, "17824501-1106-4815-BC7A-BFDCCEE43CC9")
-       }
-       
-       // MARK: - Test UI Error Handling
-       func testUIErrorHandling() async throws {
-           let viewModel = TransformationsViewModel(useCase: TransformationsUseCaseFake())
-           viewModel.transformationsData = []
-           
-           XCTAssertEqual(viewModel.transformationsData.count, 0) // Sin datos debería estar vacío
-       }
-       
-       // MARK: - Test NetworkTransformations
-       func testNetworkTransformations() async throws {
-           let network = NetworkTransformationsFake()
-           let data = await network.getTransformations(heroId: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94")
-           XCTAssertNotNil(data)
-           XCTAssertEqual(data.count, 16)
-       }
+    func testTransformationViewModel() async throws {
+        let vm = TransformationsViewModel(useCase: TransformationsUseCaseFake())
+        XCTAssertNotNil(vm)
+        XCTAssertEqual(vm.transformationsData.count, 0)  // Deben haber 14 transformaciones mockeadas
+    }
+
+    // MARK: - Test TransformationsUseCase
+    func testTransformationsUseCase() async throws {
+        let useCase = TransformationsUseCase(
+            repo: TransformationsRepositoryFake())
+        XCTAssertNotNil(useCase)
+
+        let data = await useCase.getTransformations(
+            heroId: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94")
+        XCTAssertNotNil(data)
+        XCTAssertEqual(data.count, 16)  // Mockeadas desde JSON
+    }
+
+    // MARK: - Test Transformations Combine
+    func testTransformations_Combine() async throws {
+        var suscriptor = Set<AnyCancellable>()
+        let exp = self.expectation(description: "Transformations Load")
+
+        let vm = TransformationsViewModel(useCase: TransformationsUseCaseFake())
+        XCTAssertNotNil(vm)
+
+        vm.$transformationsData
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    print("Finalizado")
+                }
+            } receiveValue: { data in
+                if data.count == 14 {
+                    exp.fulfill()
+                }
+            }
+            .store(in: &suscriptor)
+
+        await self.waitForExpectations(timeout: 10)
+    }
+
+    // MARK: - Test Transformations Data
+    func testTransformations_Data() async throws {
+        let network = NetworkTransformationsFake()
+        XCTAssertNotNil(network)
+        let repo = TransformationsRepository(network: network)
+        XCTAssertNotNil(repo)
+
+        let data = await repo.getTransformations(
+            heroId: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94")
+        XCTAssertNotNil(data)
+        XCTAssertEqual(data.count, 16)
+    }
+
+    // MARK: - Test Transformations Domain Models
+    func testTransformations_Domain() throws {
+        let model = TransformationModel(
+            id: "17824501-1106-4815-BC7A-BFDCCEE43CC9",
+            description: "Goku se transforma en un gran mono...",
+            photo:
+                "https://areajugones.sport.es/wp-content/uploads/2021/05/ozarru.jpg.webp",
+            name: "1. Oozaru – Gran Mono"
+        )
+        XCTAssertNotNil(model)
+        XCTAssertEqual(model.name, "1. Oozaru – Gran Mono")
+        XCTAssertEqual(model.id, "17824501-1106-4815-BC7A-BFDCCEE43CC9")
+    }
+
+    // MARK: - Test UI Error Handling
+    func testUIErrorHandling() async throws {
+        let viewModel = TransformationsViewModel(
+            useCase: TransformationsUseCaseFake())
+        viewModel.transformationsData = []
+
+        XCTAssertEqual(viewModel.transformationsData.count, 0)  // Sin datos debería estar vacío
+    }
+
+    // MARK: - Test NetworkTransformations
+    func testNetworkTransformations() async throws {
+        let network = NetworkTransformationsFake()
+        let data = await network.getTransformations(
+            heroId: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94")
+        XCTAssertNotNil(data)
+        XCTAssertEqual(data.count, 16)
+    }
+
+    func testLoadImageRemote() throws {
+        // Configurar una imagen de prueba en base64
+        let imageBase64String = """
+            iVBORw0KGgoAAAANSUhEUgAAAAUA
+            AAAFCAYAAACNbyblAAAAHElEQVQI12P4
+            //8/w38GIAXDIBKE0DHxgljNBAAO
+            9TXL0Y4OHwAAAABJRU5ErkJggg==
+            """
+        let imageData = Data(base64Encoded: imageBase64String)!
+        let imageUrl = URL(string: "https://example.com/image.png")!
+
+        // Crear un servidor mock que devuelve la imagen
+        let session = URLSessionMock()
+        session.mockResponses[imageUrl] = MockResponse(
+            data: imageData, statusCode: 200)
+
+        // Configurar el UIImageView
+        let imageView = UIImageView()
+        let expectation = self.expectation(description: "Image Loaded")
+
+        // Llamar a la función
+        imageView.loadImageRemote(url: imageUrl)
+
+    }
 }
